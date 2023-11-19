@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color successColor = Color(0xff41c188);
+  static const Color successColor = Color(0xff58c141);
   static const Color successLightColor = Color(0xffEBF9F3);
-  static const Color greenColor = Color(0xffD1FEEA);
+  static const Color greenColor = Color(0xff00f46a);
   static const Color backgroundColor = Color(0xff03042b);
   static const Color pageBackgroundColor = Color(0xff396196);
   static const Color headingColor = Color(0xff1c295d);
   static const Color hintTextColor = Color(0xff707070);
   static const Color hintGrey = Color(0xFF9B9B9B);
   static const Color hintEditTextColor = Color(0xffC1C1C1);
-  static const Color primaryColor = Color(0xff055ED2);
+  static const Color primaryColor = Color(0xff055ed2);
   static const Color iconColor = Color(0xff8290ab);
   static const Color textColor = Color(0xff99a6c5);
   static const Color settingBackgroundColor = Color(0xffffe6e2);

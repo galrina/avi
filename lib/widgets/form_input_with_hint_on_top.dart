@@ -47,7 +47,7 @@ class FormInputWithHint extends StatelessWidget {
     this.initialValue,
     required this.hintText,
     this.textFieldHeight = 0,
-    this.formRadius = 8,
+    this.formRadius = 5,
   });
 
   @override
@@ -112,7 +112,7 @@ class FormInputWithHint extends StatelessWidget {
             ),
             disabledBorder: OutlineInputBorder(
               borderSide:
-              const BorderSide(color: AppColors.hintGrey, width: 1),
+              const BorderSide(color: AppColors.primaryColor, width: 1),
               borderRadius: BorderRadius.circular(formRadius),
             ),
             enabledBorder: OutlineInputBorder(

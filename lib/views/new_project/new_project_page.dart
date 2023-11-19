@@ -14,7 +14,7 @@ class NewProjectPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "New Project",
-          style: GoogleFonts.poppins(color: AppColors.primaryColor),
+          style: GoogleFonts.crimsonText(color: AppColors.primaryColor),
         ),
       ),
       body: Container(
@@ -30,8 +30,8 @@ class NewProjectPage extends StatelessWidget {
             ),
             const SizedBox(height: 30,),
             const FormInputWithHint(
-              label: 'Freelancer email',
-              hintText: 'Assign Freelancer (email)',
+              label: 'Specialist email',
+              hintText: 'Assign Specialist (email)',
 
             ),
             const SizedBox(height: 50,),

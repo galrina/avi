@@ -41,8 +41,8 @@ class FormInput extends StatelessWidget {
         this.suffixIconMinimumHeightWidth = 48,
         this.maxLine = 1,
         this.errorText,
-        this.formRadius = 8,
-        this.borderColor = AppColors.lightGrey,
+        this.formRadius = 5,
+        this.borderColor = AppColors.primaryColor,
         /*required this.onChanged,*/
         required this.focusNode,
         this.initialValue,

@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Text(
                 "Avi",
-                style: GoogleFonts.poppins (
+                style: GoogleFonts.crimsonText (
                     color: AppColors.primaryColor, fontWeight: FontWeight.w700),
               ),
             ],

@@ -23,11 +23,11 @@ class ProjectOverviewPage extends StatelessWidget {
                   return ListTile(
                     title: Text(
                       index == 0 ? "Week x" : "Date, time ,duration",
-                      style: GoogleFonts.poppins(color: AppColors.primaryColor),
+                      style: GoogleFonts.inter(color: AppColors.primaryColor),
                     ),
                     subtitle: Text(
                       index == 0 ? "3 h 50 min" : "Enter Title",
-                      style: GoogleFonts.poppins(color: AppColors.primaryColor),
+                      style: GoogleFonts.inter (color: AppColors.primaryColor),
                     ),
                   );
                 }),
@@ -44,7 +44,7 @@ class ProjectOverviewPage extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Add new record",
-                  style: GoogleFonts.poppins(color: AppColors.bgWhite),
+                  style: GoogleFonts.inter (color: AppColors.bgWhite),
                 ),
               ),
             ),

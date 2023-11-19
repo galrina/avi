@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Text(
               "Avi",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.crimsonText(
                   color: AppColors.primaryColor, fontWeight: FontWeight.w700),
             ),
           ],

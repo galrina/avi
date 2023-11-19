@@ -40,7 +40,7 @@ class NewRecordPage extends StatelessWidget {
             const SizedBox(height: 20,),
             Text(
               "Timer",
-              style: GoogleFonts.poppins(color: AppColors.primaryColor),
+              style: GoogleFonts.inter(color: AppColors.primaryColor),
             ),
             const SizedBox(height: 20,),
             const FormInputWithHint(

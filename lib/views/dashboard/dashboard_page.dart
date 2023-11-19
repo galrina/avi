@@ -29,7 +29,7 @@ class DashboardPage extends StatelessWidget {
             ),
             Text(
               "Projects",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.crimsonText(
                   color: AppColors.primaryColor, fontWeight: FontWeight.w700),
             ),
           ],
@@ -40,7 +40,7 @@ class DashboardPage extends StatelessWidget {
             onPressed: () {},
             child: Text(
               "Log Out",
-              style: GoogleFonts.poppins(color: Colors.red),
+              style: GoogleFonts.inter(color: Colors.red),
             ),
           )
         ],
@@ -54,15 +54,15 @@ class DashboardPage extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     onTap: () {
-                     // Get.to(() => const ProjectOverviewPage());
+                      Get.to(() => const ProjectOverviewPage());
                     },
                     title: Text(
                       "Project title",
-                      style: GoogleFonts.poppins(color: AppColors.primaryColor),
+                      style: GoogleFonts.inter(color: AppColors.primaryColor),
                     ),
                     subtitle: Text(
                       AppConstants.isSpecialist?"Employer Name":   index != 4 ? "Waiting for approval" : "Specialist Name",
-                      style: GoogleFonts.poppins(color: AppColors.primaryColor),
+                      style: GoogleFonts.inter (color: AppColors.primaryColor),
                     ),
                     trailing: index != 4
                         ? const SizedBox()
@@ -87,7 +87,7 @@ class DashboardPage extends StatelessWidget {
               child: Center(
                 child: Text(
                   "New Project",
-                  style: GoogleFonts.poppins(color: AppColors.bgWhite),
+                  style: GoogleFonts.crimsonText (color: AppColors.bgWhite),
                 ),
               ),
             ),

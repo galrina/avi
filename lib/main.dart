@@ -9,7 +9,7 @@ import 'package:window_manager/window_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux || Platform.isIOS) {
+  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux ) {
     await windowManager.ensureInitialized();
     WindowManager.instance.setMinimumSize(const Size(380, 700));
     WindowManager.instance.setMaximumSize(const Size(380, 700));
