@@ -1,11 +1,18 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avi/utils/app_constants.dart';
 import 'package:avi/views/register/register_page.dart';
+import 'package:avi/views/dashboard/dashboard_page.dart';
+import 'package:avi/widgets/form_input_with_hint_on_top.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:screen_capturer/screen_capturer.dart';
 
+import '../../../utils/app_colors.dart';
+import '../../../utils/app_images.dart';
+import '../../../widgets/rounded_edged_button.dart';
 
 
 class LoginPage extends StatefulWidget {
