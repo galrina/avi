@@ -1,13 +1,19 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:avi/views/login/login_page.dart';
+import 'package:avi/views/splash/splash_page.dart';
 
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+ // options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux ) {
     await windowManager.ensureInitialized();
@@ -24,12 +30,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Avi',
+      title: 'Klaar',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: SplashPage(),
     );
   }
 }

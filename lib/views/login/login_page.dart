@@ -1,37 +1,48 @@
 import 'dart:io';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avi/utils/app_constants.dart';
-import 'package:avi/views/register/register_page.dart';
+import 'package:avi/utils/baseClass.dart';
 import 'package:avi/views/dashboard/dashboard_page.dart';
 import 'package:avi/widgets/form_input_with_hint_on_top.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screen_capturer/screen_capturer.dart';
-
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_images.dart';
 import '../../../widgets/rounded_edged_button.dart';
-
+import '../../controllers/login/login_controller.dart';
+import '../register/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-class _LoginPageState extends State<LoginPage> {
+
+class _LoginPageState extends State<LoginPage> with BaseClass{
   String _groupValue = '';
+
   void checkRadio(String value) {
     setState(() {
-      if (value == "Option1") {
+      if (value == "freelancer") {
         AppConstants.isSpecialist = true;
       } else {
         AppConstants.isSpecialist = false;
       }
+
       _groupValue = value;
     });
   }
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final LoginController _loginController = Get.isRegistered<LoginController>()
+      ? Get.find<LoginController>()
+      : Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Row(
             children: [
               const Image(
@@ -51,9 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                 width: 5,
               ),
               Text(
-                "Avi",
-                style: GoogleFonts.crimsonText (
-                    color: AppColors.primaryColor, fontWeight: FontWeight.w700),
+                "Klaar",
+                style: GoogleFonts.inter(
+                    color: AppColors.backgroundColor, fontWeight: FontWeight.w700),
               ),
             ],
           ),
@@ -72,14 +83,14 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     children: [
                       Radio(
-                          value: 'Option1',
+                          value: 'freelancer',
                           groupValue: _groupValue,
                           activeColor: AppColors.primaryColor,
                           onChanged: (value) {
                             checkRadio(value as String);
                           }),
                       Text(
-                        'Specialist',
+                        'Freelancer',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),
@@ -90,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     children: [
                       Radio(
-                          value: 'Option2',
+                          value: 'client',
                           groupValue: _groupValue,
                           activeColor: AppColors.primaryColor,
                           onChanged: (value) {
@@ -98,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                           }),
                       Text(
                         'Client',
-                        style: GoogleFonts.inter (
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ],
@@ -109,34 +120,66 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 40,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Email',
               hintText: ' Enter your email',
-              prefixIcon: Icon(
+              controller: _emailController,
+              prefixIcon: const Icon(
                 Icons.email,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Password',
               hintText: ' Enter your password',
               obscureText: true,
-              prefixIcon: Icon(
+              controller: _passwordController,
+              prefixIcon: const Icon(
                 Icons.lock,
-                size: 18,
+                size: 16,
               ),
-              suffixIcon: Icon(Icons.visibility_off),
             ),
             const SizedBox(
               height: 50,
             ),
             RoundedEdgedButton(
               buttonText: "Login",
-              onButtonClick: () {
-                Get.offAll(() => DashboardPage());
+              onButtonClick: () async {
+                String email = _emailController.text.trim();
+                String password = _passwordController.text.trim();
+                if (_groupValue.isEmpty) {
+                  AppConstants.showError(
+                      title: "Role", message: "Please select your role");
+                } else if (email.isEmpty) {
+                  AppConstants.showError(
+                      title: "Email", message: "Email cannot be empty");
+                } else if (!EmailValidator.validate(email)) {
+                  AppConstants.showError(
+                      title: "Email", message: "Email format is not correct");
+                } else if (password.isEmpty) {
+                  AppConstants.showError(
+                      title: "Password", message: "Password cannot be empty");
+                } else if (password.length < 7) {
+                  AppConstants.showError(
+                      title: "Password", message: "Password is too short");
+                } else {
+                  try {
+                    showCircularDialog(context);
+                    await _loginController.getUserDetail(email, password,_groupValue);
+                    if(mounted) {
+                      popToPreviousScreen(context: context);
+                    }
+                    Get.offAll(() =>  DashboardPage());
+                  }  catch (e) {
+                    if(mounted) {
+                      popToPreviousScreen(context: context);
+                    }
+                    showError(title: "Error", message: e.toString());
+                  }
+                }
               },
             ),
             Padding(
@@ -165,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onTap: () {
-                      Get.to(() => RegisterPage());
+                      Get.to(() => const RegisterPage());
                     },
                   ),
                 ],

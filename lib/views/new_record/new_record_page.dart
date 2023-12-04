@@ -14,7 +14,7 @@ class NewRecordPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Add New Record",
-          style: GoogleFonts.poppins(color: AppColors.primaryColor),
+          style: GoogleFonts.crimsonText(color: AppColors.primaryColor),
         ),
         centerTitle: true,
       ),
@@ -32,46 +32,58 @@ class NewRecordPage extends StatelessWidget {
                   shape: BoxShape.circle, color: AppColors.primaryColor),
               child: Center(
                 child: Text(
-                  "Start/Stop",
-                  style: GoogleFonts.poppins(color: AppColors.bgWhite),
+                  "Start",
+                  style: GoogleFonts.crimsonText(
+                      color: AppColors.bgWhite, fontSize: 27),
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Text(
               "Timer",
               style: GoogleFonts.inter(color: AppColors.primaryColor),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             const FormInputWithHint(
               label: 'Name',
               hintText: 'Enter Name',
-
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             const FormInputWithHint(
               maxLine: 5,
               label: 'Comments',
               hintText: 'Add Comment',
             ),
-            const SizedBox(height: 30,),
-            Row(children: [
-              Expanded(
-                child: RoundedEdgedButton(
-                  buttonText: "Cancel",
-                  buttonBackground: Colors.white,
-                  buttonTextColor: Colors.black,
-                  onButtonClick: () {},
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: RoundedEdgedButton(
+                    buttonText: "Cancel",
+                    buttonBackground: Colors.white,
+                    buttonTextColor: Colors.black,
+                    onButtonClick: () {},
+                  ),
                 ),
-              ),
-              const SizedBox(width: 20,),
-              Expanded(
-                child: RoundedEdgedButton(
-                  buttonText: "Submit",
-                  onButtonClick: () {},
+                const SizedBox(
+                  width: 20,
                 ),
-              ),
-            ],)
+                Expanded(
+                  child: RoundedEdgedButton(
+                    buttonText: "Submit",
+                    onButtonClick: () {},
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

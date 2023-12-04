@@ -10,7 +10,7 @@ class AppColors {
   static const Color hintTextColor = Color(0xff707070);
   static const Color hintGrey = Color(0xFF9B9B9B);
   static const Color hintEditTextColor = Color(0xffC1C1C1);
-  static const Color primaryColor = Color(0xff055ed2);
+  static const Color primaryColor = Color(0xff00f46a);
   static const Color iconColor = Color(0xff8290ab);
   static const Color textColor = Color(0xff99a6c5);
   static const Color settingBackgroundColor = Color(0xffffe6e2);

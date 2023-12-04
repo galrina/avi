@@ -62,7 +62,7 @@ class FormInputWithHint extends StatelessWidget {
             textStyle: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: AppColors.titleColor,
+              color: AppColors.backgroundColor,
             ),
           ),
         ),
@@ -78,7 +78,7 @@ class FormInputWithHint extends StatelessWidget {
             enabled: isEnabled,
             filled: true,
             hintStyle: GoogleFonts.inter(
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w300,
               fontSize: 14,
               color: AppColors.hintGrey,
             ),

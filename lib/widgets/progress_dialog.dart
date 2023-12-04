@@ -1,7 +1,10 @@
-/*
 import 'package:flutter/material.dart';
+
+import '../utils/app_colors.dart';
+
 class ProgressDialog extends StatelessWidget {
-  const ProgressDialog({super.key});
+  const ProgressDialog({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,14 +13,12 @@ class ProgressDialog extends StatelessWidget {
         color: Colors.white,
         child: Container(
           padding: const EdgeInsets.all(10),
-          child: Image.asset(
-            AppImages.phoneNumber,
-            height: 50.0,
-            width: 50.0,
-          ),
+         child: const CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+            AppColors.headingColor,
         ),
+       ),
       ),
-    );
+      ) );
   }
 }
-*/

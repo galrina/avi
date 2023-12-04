@@ -1,26 +1,44 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avi/views/dashboard/dashboard_page.dart';
+import 'package:avi/controllers/register/register_controller.dart';
+import 'package:avi/utils/baseClass.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../../widgets/form_input_with_hint_on_top.dart';
 import '../../../widgets/rounded_edged_button.dart';
-
-
+import '../../utils/app_constants.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
-class _RegisterPageState extends State<RegisterPage> {
+
+class _RegisterPageState extends State<RegisterPage> with BaseClass {
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   String _groupValue = '';
+
   void checkRadio(String value) {
     setState(() {
       _groupValue = value;
     });
   }
+
+  final RegisterUserController _registerUserController =
+      Get.put(RegisterUserController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             const Image(
@@ -40,8 +58,8 @@ class _RegisterPageState extends State<RegisterPage> {
               width: 5,
             ),
             Text(
-              "Avi",
-              style: GoogleFonts.crimsonText(
+              "Klaar",
+              style: GoogleFonts.inter(
                   color: AppColors.primaryColor, fontWeight: FontWeight.w700),
             ),
           ],
@@ -58,14 +76,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Row(
                     children: [
                       Radio(
-                          value: 'Option1',
+                          value: 'freelancer',
                           groupValue: _groupValue,
                           onChanged: (value) {
                             checkRadio(value as String);
                           }),
                       Text(
                         'Specialist',
-                        style: GoogleFonts.inter (
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ],
@@ -75,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Row(
                     children: [
                       Radio(
-                          value: 'Option2',
+                          value: 'client',
                           groupValue: _groupValue,
                           onChanged: (value) {
                             checkRadio(value as String);
@@ -93,58 +111,63 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 15,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'First Name',
               hintText: ' Enter your first name',
-              prefixIcon: Icon(
+              controller: _firstNameController,
+              prefixIcon: const Icon(
                 Icons.person,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
               height: 15,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Last Name',
               hintText: ' Enter your last name',
-              prefixIcon: Icon(
+              controller: _lastNameController,
+              prefixIcon: const Icon(
                 Icons.person,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
               height: 15,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Email',
               hintText: ' Enter your email',
-              prefixIcon: Icon(
+              controller: _emailController,
+              prefixIcon: const Icon(
                 Icons.email,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
               height: 15,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Password',
               hintText: ' Enter your password',
+              controller: _passwordController,
               obscureText: true,
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.lock,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
               height: 15,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Confirm Password',
               hintText: ' Confirm your password',
+              controller: _confirmPasswordController,
               obscureText: true,
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.lock,
-                size: 18,
+                size: 16,
               ),
             ),
             const SizedBox(
@@ -152,8 +175,64 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             RoundedEdgedButton(
               buttonText: "Register",
-              onButtonClick: () {
-                Get.offAll(() => DashboardPage());
+              onButtonClick: () async {
+                String firstName = _firstNameController.text.trim();
+                String lastName = _lastNameController.text.trim();
+                String email = _emailController.text.trim();
+                String password = _passwordController.text.trim();
+                String confirmPassword = _confirmPasswordController.text.trim();
+                if (_groupValue.isEmpty) {
+                  AppConstants.showError(
+                      title: "Role", message: "Please select your role");
+                } else if (firstName.isEmpty) {
+                  AppConstants.showError(
+                      title: "First Name",
+                      message: "First Name cannot be empty");
+                } else if (lastName.isEmpty) {
+                  AppConstants.showError(
+                      title: "Last Name", message: "Last Name cannot be empty");
+                } else if (email.isEmpty) {
+                  AppConstants.showError(
+                      title: "Email", message: "Email cannot be empty");
+                } else if (!EmailValidator.validate(email)) {
+                  AppConstants.showError(
+                      title: "Email", message: "Email format is not correct");
+                } else if (password.isEmpty) {
+                  AppConstants.showError(
+                      title: "Password", message: "Password cannot be empty");
+                } else if (password.length < 7) {
+                  AppConstants.showError(
+                      title: "Password", message: "Password is too short");
+                } else if (password.isEmpty) {
+                  AppConstants.showError(
+                      title: "Confirm Password",
+                      message: "Confirm Password cannot be empty");
+                } else {
+                  try {
+                    showCircularDialog(context);
+
+                    await _registerUserController.createUser(
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName,
+                        role: _groupValue);
+                    if (mounted) {
+                      popToPreviousScreen(context: context);
+                      popToPreviousScreen(context: context);
+                    }
+                    showSuccess(
+                        title: "Success", message: "Registered Successfully");
+                  } on FirebaseAuthException catch (e) {
+                    if (mounted) {
+                      popToPreviousScreen(context: context);
+                    }
+                    if (kDebugMode) {
+                      print(e.toString());
+                    }
+                    showError(title: "Error", message: e.message.toString());
+                  }
+                }
               },
             ),
             Padding(
@@ -176,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Text(
                       ' Login!',
                       style: GoogleFonts.inter(
-                        color: AppColors.primaryColor,
+                        color: AppColors.backgroundColor,
                         fontWeight: FontWeight.w700,
                         fontSize: 16,
                       ),

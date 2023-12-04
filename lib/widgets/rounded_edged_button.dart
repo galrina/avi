@@ -17,9 +17,9 @@ class RoundedEdgedButton extends StatelessWidget {
     required this.onButtonClick,
     this.height = 50,
     this.buttonBackground = (AppColors.primaryColor),
-    this.borderRadius = 10,
+    this.borderRadius = 5,
     this.buttonFontSize = 16,
-    this.buttonTextColor = AppColors.bgWhite,
+    this.buttonTextColor = AppColors.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class RoundedEdgedButton extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               offset: const Offset(1, 1),
-              blurRadius: 5,
+              blurRadius: 0,
               color: buttonBackground,
             )
           ],

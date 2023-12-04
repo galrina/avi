@@ -23,32 +23,34 @@ class ProjectOverviewPage extends StatelessWidget {
                   return ListTile(
                     title: Text(
                       index == 0 ? "Week x" : "Date, time ,duration",
-                      style: GoogleFonts.inter(color: AppColors.primaryColor),
+                      style:
+                          GoogleFonts.inter(color: AppColors.backgroundColor),
                     ),
                     subtitle: Text(
                       index == 0 ? "3 h 50 min" : "Enter Title",
-                      style: GoogleFonts.inter (color: AppColors.primaryColor),
+                      style:
+                          GoogleFonts.inter(color: AppColors.backgroundColor),
                     ),
                   );
                 }),
           ),
           AppConstants.isSpecialist
               ? GestureDetector(
-            onTap: () {
-              Get.to(() => NewRecordPage());
-            },
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              child: Center(
-                child: Text(
-                  "Add new record",
-                  style: GoogleFonts.inter (color: AppColors.bgWhite),
-                ),
-              ),
-            ),
-          )
+                  onTap: () {
+                    Get.to(() => NewRecordPage());
+                  },
+                  child: Container(
+                    height: 60,
+                    width: double.infinity,
+                    color: AppColors.primaryColor,
+                    child: Center(
+                      child: Text(
+                        "Add new record",
+                        style: GoogleFonts.inter(color: AppColors.bgWhite),
+                      ),
+                    ),
+                  ),
+                )
               : Container(),
         ],
       ),
