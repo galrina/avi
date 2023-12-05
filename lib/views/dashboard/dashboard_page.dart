@@ -19,8 +19,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> with BaseClass {
-  ClientDashboardController clientDashboardController =
-  Get.put(ClientDashboardController());
+  ProjectDashboardController projectDashboardController =
+      Get.put(ProjectDashboardController());
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
   }
 
   getClientProjects() async {
-    await clientDashboardController.getClientProjects();
+    await projectDashboardController.getProjects();
   }
 
   @override
@@ -42,7 +42,6 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
             SizedBox(
               width: 5,
             ),
-
             const SizedBox(
               width: 5,
             ),
@@ -71,100 +70,246 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
         ],
       ),
     );
-      body: Column(
-          children: [
-      Expanded(
-          child: GetBuilder<ClientDashboardController>(
-          init: clientDashboardController,
-          builder: (snapshot) {
-            return snapshot.clientProjectsModel == null
-                ? const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.bgGreen,
+    body:
+    Column(
+      children: [
+        Expanded(
+          child: GetBuilder<ProjectDashboardController>(
+              init: projectDashboardController,
+              builder: (snapshot) {
+                return snapshot.projectsModel == null
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.bgGreen,
+                          ),
+                        ),
+                      )
+                    : snapshot.projectsModel!.isEmpty
+                        ? Center(
+                            child: Text(
+                              "No Projects Found",
+                              style: GoogleFonts.poppins(color: Colors.red),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: snapshot.projectsModel?.length ?? 0,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                onTap: () {
+                                  if (getRole() == "freelancer") {
+                                    if (snapshot.projectsModel
+                                            ?.elementAt(index)
+                                            .isApproved ==
+                                        "waiting") {
+                                      showError(
+                                          title: snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .title ??
+                                              "",
+                                          message:
+                                              "Please approve project to add the record");
+                                    } else if (snapshot.projectsModel
+                                            ?.elementAt(index)
+                                            .isApproved ==
+                                        "rejected") {
+                                      showError(
+                                          title: snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .title ??
+                                              "",
+                                          message:
+                                              "You cannot add record as you have rejected the project");
+                                    } else {
+                                      Get.to(() => ProjectOverviewPage(
+                                            projectId: snapshot.projectsModel
+                                                    ?.elementAt(index)
+                                                    .projectId ??
+                                                "",
+                                            clientId: snapshot.projectsModel
+                                                    ?.elementAt(index)
+                                                    .userId ??
+                                                "",
+                                          ));
+                                    }
+                                  }
+                                },
+                                title: getRole() == "client"
+                                    ? Text(
+                                        snapshot.projectsModel
+                                                ?.elementAt(index)
+                                                .title ??
+                                            "",
+                                        style: GoogleFonts.poppins(
+                                            color: AppColors.primaryColor),
+                                      )
+                                    : Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              snapshot.projectsModel
+                                                      ?.elementAt(index)
+                                                      .title ??
+                                                  "",
+                                              style: GoogleFonts.poppins(
+                                                  color:
+                                                      AppColors.primaryColor),
+                                            ),
+                                          ),
+                                          snapshot.projectsModel
+                                                      ?.elementAt(index)
+                                                      .isApproved ==
+                                                  "waiting"
+                                              ? Row(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () async {
+                                                        try {
+                                                          showCircularDialog(
+                                                              context);
+                                                          await snapshot
+                                                              .changeProjectStatus(
+                                                                  index, true);
+                                                          if (mounted) {
+                                                            popToPreviousScreen(
+                                                                context:
+                                                                    context);
+                                                          }
+                                                        } catch (e) {
+                                                          if (mounted) {
+                                                            popToPreviousScreen(
+                                                                context:
+                                                                    context);
+                                                          }
+                                                          showError(
+                                                              title: "Error",
+                                                              message:
+                                                                  e.toString());
+                                                        }
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.check),
+                                                      color: Colors.green,
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () async {
+                                                        try {
+                                                          showCircularDialog(
+                                                              context);
+                                                          await snapshot
+                                                              .changeProjectStatus(
+                                                                  index, false);
+                                                          if (mounted) {
+                                                            popToPreviousScreen(
+                                                                context:
+                                                                    context);
+                                                          }
+                                                        } catch (e) {
+                                                          if (mounted) {
+                                                            popToPreviousScreen(
+                                                                context:
+                                                                    context);
+                                                          }
+                                                          showError(
+                                                              title: "Error",
+                                                              message:
+                                                                  e.toString());
+                                                        }
+                                                      },
+                                                      icon: const Icon(Icons
+                                                          .cancel_outlined),
+                                                      color: Colors.red,
+                                                    ),
+                                                  ],
+                                                )
+                                              : SizedBox()
+                                        ],
+                                      ),
+                                subtitle: Text(
+                                  getRole() == "client"
+                                      ? snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .isApproved ==
+                                              "waiting"
+                                          ? "Waiting for approval"
+                                          : snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .freelancerName ??
+                                              ''
+                                      : snapshot.projectsModel
+                                              ?.elementAt(index)
+                                              .clientName ??
+                                          '',
+                                  style: GoogleFonts.inter(
+                                      color: AppColors.primaryColor),
+                                ),
+                                trailing: getRole() == "client"
+                                    ? snapshot.projectsModel
+                                                ?.elementAt(index)
+                                                .isApproved ==
+                                            "waiting"
+                                        ? const SizedBox()
+                                        : IconButton(
+                                            icon: const Icon(
+                                              Icons.cancel_outlined,
+                                              color: Colors.red,
+                                            ),
+                                            onPressed: () async {
+                                              try {
+                                                showCircularDialog(context);
+                                                await snapshot
+                                                    .deleteUnApprovedProject(
+                                                        snapshot.projectsModel
+                                                                ?.elementAt(
+                                                                    index)
+                                                                .projectId ??
+                                                            "",
+                                                        index);
+                                                if (mounted) {
+                                                  popToPreviousScreen(
+                                                      context: context);
+                                                }
+
+                                                showSuccess(
+                                                    title: "Deleted",
+                                                    message:
+                                                        "Project Deleted Successfully");
+                                              } catch (e) {
+                                                if (mounted) {
+                                                  popToPreviousScreen(
+                                                      context: context);
+                                                }
+                                                showError(
+                                                    title: "Error",
+                                                    message: e.toString());
+                                              }
+                                            },
+                                          )
+                                    : SizedBox(),
+                              );
+                            });
+              }),
+        ),
+        getRole() == "client"
+            ? Container()
+            : GestureDetector(
+                onTap: () {
+                  Get.to(() => NewProjectPage());
+                },
+                child: Container(
+                  height: 60,
+                  width: double.infinity,
+                  color: AppColors.primaryColor,
+                  child: Center(
+                    child: Text(
+                      "New Project",
+                      style: GoogleFonts.poppins(color: AppColors.bgWhite),
+                    ),
+                  ),
                 ),
               ),
-            )
-                : snapshot.clientProjectsModel!.isEmpty
-                ? Center(
-              child: Text(
-                "No Projects Found",
-                style: GoogleFonts.poppins(color: Colors.red),
-              ),
-            )
-                : ListView.builder(
-                itemCount:
-                snapshot.clientProjectsModel?.length ?? 0,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    onTap: () {
-                      Get.to(() => const ProjectOverviewPage());
-                    },
-                    title: Text(
-                      snapshot.clientProjectsModel
-                          ?.elementAt(index)
-                          .title ?? "",
-                      style: GoogleFonts.poppins(
-                          color: AppColors.primaryColor),
-                    ),
-                    subtitle: Text(
-                      snapshot.clientProjectsModel
-                          ?.elementAt(index)
-                          .isApproved ==
-                          "waiting"
-                          ? "Waiting for approval"
-                          : snapshot.clientProjectsModel
-                          ?.elementAt(index)
-                          .freelancerEmail ??
-                          '',
-                      style: GoogleFonts.inter(
-                          color: AppColors.primaryColor),
-                    ),
-                    trailing: snapshot.clientProjectsModel
-                        ?.elementAt(index)
-                        .isApproved == "waiting"
-                        ? const SizedBox()
-                        : IconButton(
-                      icon: const Icon(
-                        Icons.cancel_outlined,
-                        color: Colors.red,
-                      ),
-                      onPressed: () async {
-                        try {
-                          showCircularDialog(context);
-                          await snapshot
-                              .deleteUnApprovedProject(
-                              snapshot.clientProjectsModel
-                                  ?.elementAt(
-                                  index)
-                                  .projectId ?? "",
-                              index);
-                          if (mounted) {
-                            popToPreviousScreen(
-                                context: context);
-                          }
-
-                          showSuccess(
-                              title: "Deleted",
-                              message:
-                              "Project Deleted Successfully");
-                        } catch (e) {
-                          if (mounted) {
-                            popToPreviousScreen(
-                                context: context);
-                          }
-                          showError(
-                              title: "Error",
-                              message: e.toString());
-                        }
-                      },
-                    ),
-                  );
-                });
-          }),
-    )
-    ]
+      ],
     );
   }
 }

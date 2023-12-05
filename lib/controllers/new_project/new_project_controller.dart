@@ -34,10 +34,14 @@ class NewProjectController extends GetxController with BaseClass {
       var result = UserDataModel.fromJson(prefData);
       Map<String, dynamic> userDetail = {
         "freelancerEmail": freelancerEmail,
+        "freelancerName": userData.docs.elementAt(0)["firstName"] +
+            " " +
+            userData.docs.elementAt(0)["userId"],
         "freelancerId": userData.docs.elementAt(0)["userId"],
         "projectId": docId,
         "title": title,
         "userId": result.userId,
+        "clientName": "${result.firstName!} ${result.lastName!}",
         "isApproved": "waiting",
       };
 

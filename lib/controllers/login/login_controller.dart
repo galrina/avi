@@ -36,6 +36,7 @@ class LoginController extends GetxController with BaseClass {
         userDataModel.firstName = loginModel.firstName;
         userDataModel.lastName = loginModel.lastName;
         userDataModel.userEmail = loginModel.email;
+        userDataModel.role = loginModel.role;
         userDataModel.isLoggedIn = true;
         userDataModel.userId = loginModel.userId;
         await localStorage.write(

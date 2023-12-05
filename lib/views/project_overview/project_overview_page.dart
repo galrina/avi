@@ -3,11 +3,18 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avi/utils/app_constants.dart';
 import 'package:avi/views/new_record/new_record_page.dart';
+import 'package:avi/utils/baseClass.dart';
 
 import '../../utils/app_colors.dart';
 
-class ProjectOverviewPage extends StatelessWidget {
-  const ProjectOverviewPage({Key? key}) : super(key: key);
+class ProjectOverviewPage extends StatelessWidget with BaseClass {
+  final String projectId;
+
+  final String clientId;
+
+  ProjectOverviewPage(
+      {Key? key, required this.projectId, required this.clientId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +41,13 @@ class ProjectOverviewPage extends StatelessWidget {
                   );
                 }),
           ),
-          AppConstants.isSpecialist
+          getRole() == "freelancer"
               ? GestureDetector(
                   onTap: () {
-                    Get.to(() => NewRecordPage());
+                    Get.to(() => NewRecordPage(
+                          projectId: projectId,
+                          clientId: clientId,
+                        ));
                   },
                   child: Container(
                     height: 60,

@@ -1,20 +1,27 @@
 import 'dart:convert';
 import 'dart:io';
 
+import '../models/user_data/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
+import 'local_keys.dart';
 import '../widgets/progress_dialog.dart';
 
 mixin BaseClass {
   final localStorage = GetStorage();
 
-  // Makes a screen to potrait only
-  // implement in main class to make the whole app in potrait mode
+  String getRole() {
+    final prefData = localStorage.read(LocalKeys.userData);
+    var result = UserDataModel.fromJson(prefData);
+    return result.role ?? "client";
+  }
+
+  // Makes a screen to portrait only
+  // implement in main class to make the whole app in portrait mode
   void portraitModeOnly() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -130,6 +137,7 @@ mixin BaseClass {
     FocusScope.of(context).requestFocus(new FocusNode());
   }
 
+/*
   String getDeviceType() {
     if (Platform.isAndroid) {
       return "android";
@@ -137,7 +145,7 @@ mixin BaseClass {
       return "ios";
     }
   }
-
+*/
   void showError({
     required String title,
     required String message,

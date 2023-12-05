@@ -16,7 +16,8 @@ class NewProjectPage extends StatelessWidget with BaseClass {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   NewProjectController newProjectController = Get.put(NewProjectController());
-  ClientDashboardController clientDashboardController = Get.put(ClientDashboardController());
+  ProjectDashboardController projectDashboardController =
+      Get.put(ProjectDashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +87,12 @@ class NewProjectPage extends StatelessWidget with BaseClass {
                       } else {
                         try {
                           showCircularDialog(context);
-                          await    newProjectController.addNewProject(
+                          await newProjectController.addNewProject(
                               title: title, freelancerEmail: email);
                           popToPreviousScreen(context: context);
-                          _emailController.text ="";
+                          _emailController.text = "";
                           _titleController.text = "";
-                          await clientDashboardController.getClientProjects();
+                          await projectDashboardController.getProjects();
                           showSuccess(
                               title: "Added",
                               message: "Invitation sent successfully");

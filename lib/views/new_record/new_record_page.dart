@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:avi/controllers/new_record/new_record_controller.dart';
 import 'package:avi/utils/app_colors.dart';
+import 'package:avi/utils/baseClass.dart';
 
 import '../../widgets/form_input_with_hint_on_top.dart';
 import '../../widgets/rounded_edged_button.dart';
 
-class NewRecordPage extends StatelessWidget {
-  const NewRecordPage({Key? key}) : super(key: key);
+class NewRecordPage extends StatelessWidget with BaseClass {
+  final String projectId;
+
+  final String clientId;
+
+  NewRecordPage({Key? key, required this.projectId, required this.clientId})
+      : super(key: key);
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController commentController = TextEditingController();
+  NewRecordController newRecordController = Get.put(NewRecordController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +26,7 @@ class NewRecordPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Add New Record",
-          style: GoogleFonts.crimsonText(color: AppColors.primaryColor),
+          style: GoogleFonts.inter(color: AppColors.primaryColor),
         ),
         centerTitle: true,
       ),
@@ -33,8 +45,8 @@ class NewRecordPage extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Start",
-                  style: GoogleFonts.crimsonText(
-                      color: AppColors.bgWhite, fontSize: 27),
+                  style:
+                      GoogleFonts.inter(color: AppColors.bgWhite, fontSize: 27),
                 ),
               ),
             ),
@@ -48,16 +60,18 @@ class NewRecordPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               label: 'Name',
               hintText: 'Enter Name',
+              controller: nameController,
             ),
             const SizedBox(
               height: 30,
             ),
-            const FormInputWithHint(
+            FormInputWithHint(
               maxLine: 5,
               label: 'Comments',
+              controller: commentController,
               hintText: 'Add Comment',
             ),
             const SizedBox(
@@ -70,7 +84,9 @@ class NewRecordPage extends StatelessWidget {
                     buttonText: "Cancel",
                     buttonBackground: Colors.white,
                     buttonTextColor: Colors.black,
-                    onButtonClick: () {},
+                    onButtonClick: () {
+                      popToPreviousScreen(context: context);
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -79,7 +95,35 @@ class NewRecordPage extends StatelessWidget {
                 Expanded(
                   child: RoundedEdgedButton(
                     buttonText: "Submit",
-                    onButtonClick: () {},
+                    onButtonClick: () async {
+                      String name = nameController.text.trim();
+                      String comment = commentController.text.trim();
+
+                      if (name.isEmpty) {
+                        showError(title: "Name", message: "Please add Name");
+                      } else if (comment.isEmpty) {
+                        showError(
+                            title: "Comment", message: "Please add Comment");
+                      } else {
+                        try {
+                          showCircularDialog(context);
+                          await newRecordController.addNewRecord(
+                              name: name,
+                              comment: comment,
+                              projectId: projectId,
+                              clientId: clientId);
+                          popToPreviousScreen(context: context);
+                          nameController.text = "";
+                          commentController.text = "";
+                          showSuccess(
+                              title: "New Record",
+                              message: "New Record added successfully");
+                        } catch (e) {
+                          popToPreviousScreen(context: context);
+                          showError(title: "Error", message: e.toString());
+                        }
+                      }
+                    },
                   ),
                 ),
               ],

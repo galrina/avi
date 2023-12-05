@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with BaseClass{
+class _LoginPageState extends State<LoginPage> with BaseClass {
   String _groupValue = '';
 
   void checkRadio(String value) {
@@ -64,7 +64,8 @@ class _LoginPageState extends State<LoginPage> with BaseClass{
               Text(
                 "Klaar",
                 style: GoogleFonts.inter(
-                    color: AppColors.backgroundColor, fontWeight: FontWeight.w700),
+                    color: AppColors.backgroundColor,
+                    fontWeight: FontWeight.w700),
               ),
             ],
           ),
@@ -168,13 +169,14 @@ class _LoginPageState extends State<LoginPage> with BaseClass{
                 } else {
                   try {
                     showCircularDialog(context);
-                    await _loginController.getUserDetail(email, password,_groupValue);
-                    if(mounted) {
+                    await _loginController.getUserDetail(
+                        email, password, _groupValue);
+                    if (mounted) {
                       popToPreviousScreen(context: context);
                     }
-                    Get.offAll(() =>  DashboardPage());
-                  }  catch (e) {
-                    if(mounted) {
+                    Get.offAll(() => DashboardPage());
+                  } catch (e) {
+                    if (mounted) {
                       popToPreviousScreen(context: context);
                     }
                     showError(title: "Error", message: e.toString());

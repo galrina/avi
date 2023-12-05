@@ -82,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> with BaseClass {
                             checkRadio(value as String);
                           }),
                       Text(
-                        'Specialist',
+                        'Freelancer',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),
