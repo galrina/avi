@@ -27,9 +27,9 @@ class _LoginPageState extends State<LoginPage> with BaseClass {
   void checkRadio(String value) {
     setState(() {
       if (value == "freelancer") {
-        AppConstants.isSpecialist = true;
+        AppConstants.isFreelancer = true;
       } else {
-        AppConstants.isSpecialist = false;
+        AppConstants.isFreelancer = false;
       }
 
       _groupValue = value;

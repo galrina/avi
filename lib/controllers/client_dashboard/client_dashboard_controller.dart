@@ -23,7 +23,7 @@ class ProjectDashboardController extends GetxController with BaseClass {
       QuerySnapshot projectData = await _firebaseFirestore
           .collection("projects")
           .where(
-            result.role == "client" ? "userId" : "freelancer",
+            result.role == "client" ? "userId" : "freelancerId",
             isEqualTo: result.userId,
           )
           .orderBy('createdOn', descending: true)

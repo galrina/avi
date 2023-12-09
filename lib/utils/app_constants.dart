@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppConstants {
-  static bool isSpecialist = false;
+  static bool isFreelancer = false;
 
 
   static void showError({

@@ -39,9 +39,6 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
       appBar: AppBar(
         title: Row(
           children: [
-            SizedBox(
-              width: 5,
-            ),
             const SizedBox(
               width: 5,
             ),
@@ -59,7 +56,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
             onPressed: () async {
               await localStorage.remove(LocalKeys.userData);
               Get.offAll(
-                const LoginPage(),
+                () => const LoginPage(),
               );
             },
             child: Text(
@@ -69,7 +66,6 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
           )
         ],
       ),
-    );
     body:
     Column(
       children: [
@@ -131,8 +127,27 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                     ?.elementAt(index)
                                                     .userId ??
                                                 "",
+                                            projectName: snapshot.projectsModel
+                                                    ?.elementAt(index)
+                                                    .title ??
+                                                "",
                                           ));
                                     }
+                                  } else {
+                                    Get.to(() => ProjectOverviewPage(
+                                          projectId: snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .projectId ??
+                                              "",
+                                          clientId: snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .userId ??
+                                              "",
+                                          projectName: snapshot.projectsModel
+                                                  ?.elementAt(index)
+                                                  .title ??
+                                              "",
+                                        ));
                                   }
                                 },
                                 title: getRole() == "client"
@@ -250,48 +265,57 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                 .isApproved ==
                                             "waiting"
                                         ? const SizedBox()
-                                        : IconButton(
-                                            icon: const Icon(
-                                              Icons.cancel_outlined,
-                                              color: Colors.red,
-                                            ),
-                                            onPressed: () async {
-                                              try {
-                                                showCircularDialog(context);
-                                                await snapshot
-                                                    .deleteUnApprovedProject(
-                                                        snapshot.projectsModel
-                                                                ?.elementAt(
-                                                                    index)
-                                                                .projectId ??
-                                                            "",
-                                                        index);
-                                                if (mounted) {
-                                                  popToPreviousScreen(
-                                                      context: context);
-                                                }
+                                        : snapshot.projectsModel
+                                                        ?.elementAt(index)
+                                                        .isApproved ==
+                                                    "accepted" ||
+                                                snapshot.projectsModel
+                                                        ?.elementAt(index)
+                                                        .isApproved ==
+                                                    "rejected"
+                                            ? SizedBox()
+                                            : IconButton(
+                                                icon: const Icon(
+                                                  Icons.cancel_outlined,
+                                                  color: Colors.red,
+                                                ),
+                                                onPressed: () async {
+                                                  try {
+                                                    showCircularDialog(context);
+                                                    await snapshot
+                                                        .deleteUnApprovedProject(
+                                                            snapshot.projectsModel
+                                                                    ?.elementAt(
+                                                                        index)
+                                                                    .projectId ??
+                                                                "",
+                                                            index);
+                                                    if (mounted) {
+                                                      popToPreviousScreen(
+                                                          context: context);
+                                                    }
 
-                                                showSuccess(
-                                                    title: "Deleted",
-                                                    message:
-                                                        "Project Deleted Successfully");
-                                              } catch (e) {
-                                                if (mounted) {
-                                                  popToPreviousScreen(
-                                                      context: context);
-                                                }
-                                                showError(
-                                                    title: "Error",
-                                                    message: e.toString());
-                                              }
-                                            },
-                                          )
+                                                    showSuccess(
+                                                        title: "Deleted",
+                                                        message:
+                                                            "Project Deleted Successfully");
+                                                  } catch (e) {
+                                                    if (mounted) {
+                                                      popToPreviousScreen(
+                                                          context: context);
+                                                    }
+                                                    showError(
+                                                        title: "Error",
+                                                        message: e.toString());
+                                                  }
+                                                },
+                                              )
                                     : SizedBox(),
                               );
                             });
               }),
         ),
-        getRole() == "client"
+        getRole() == "freelancer"
             ? Container()
             : GestureDetector(
                 onTap: () {
@@ -310,6 +334,6 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                 ),
               ),
       ],
-    );
+    ));
   }
 }

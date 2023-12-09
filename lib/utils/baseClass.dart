@@ -137,15 +137,15 @@ mixin BaseClass {
     FocusScope.of(context).requestFocus(new FocusNode());
   }
 
-/*
+
   String getDeviceType() {
-    if (Platform.isAndroid) {
-      return "android";
+    if (Platform.isMacOS) {
+      return "macOs";
     } else {
-      return "ios";
+      return "web";
     }
   }
-*/
+
   void showError({
     required String title,
     required String message,
