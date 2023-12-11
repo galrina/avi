@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:avi/views/dashboard/dashboard_page.dart';
 import 'package:avi/controllers/register/register_controller.dart';
 import 'package:avi/utils/baseClass.dart';
 
@@ -14,7 +13,7 @@ import '../../../widgets/rounded_edged_button.dart';
 import '../../utils/app_constants.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -47,12 +46,12 @@ class _RegisterPageState extends State<RegisterPage> with BaseClass {
         title: Row(
           children: [
             const SizedBox(
-              width: 10,
+              width: 5,
             ),
             const Image(
               image: AssetImage("assets/logo.png"),
-              height: 40,
-              width: 40,
+              height: 30,
+              width: 30,
             ),
             const SizedBox(
               width: 5,
@@ -60,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> with BaseClass {
             Text(
               "Klaar",
               style: GoogleFonts.inter(
-                  color: AppColors.primaryColor, fontWeight: FontWeight.w700),
+                  color: AppColors.backgroundColor, fontWeight: FontWeight.w700),
             ),
           ],
         ),

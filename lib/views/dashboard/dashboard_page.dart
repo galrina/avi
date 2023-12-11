@@ -8,11 +8,10 @@ import 'package:avi/utils/local_keys.dart';
 import 'package:avi/views/login/login_page.dart';
 import 'package:avi/views/new_project/new_project_page.dart';
 
-import '../../utils/app_constants.dart';
 import '../project_overview/project_overview_page.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -43,7 +42,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
               width: 5,
             ),
             Text(
-              "Projects",
+              "PROJECTS",
               style: GoogleFonts.inter(
                   color: AppColors.backgroundColor,
                   fontWeight: FontWeight.w700),
@@ -85,7 +84,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                         ? Center(
                             child: Text(
                               "No Projects Found",
-                              style: GoogleFonts.poppins(color: Colors.red),
+                              style: GoogleFonts.inter(color: Colors.black),
                             ),
                           )
                         : ListView.builder(
@@ -156,8 +155,8 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                 ?.elementAt(index)
                                                 .title ??
                                             "",
-                                        style: GoogleFonts.poppins(
-                                            color: AppColors.primaryColor),
+                                        style: GoogleFonts.inter (
+                                            color: AppColors.backgroundColor),
                                       )
                                     : Row(
                                         children: [
@@ -167,9 +166,9 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                       ?.elementAt(index)
                                                       .title ??
                                                   "",
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.inter (
                                                   color:
-                                                      AppColors.primaryColor),
+                                                      AppColors.backgroundColor),
                                             ),
                                           ),
                                           snapshot.projectsModel
@@ -238,7 +237,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                     ),
                                                   ],
                                                 )
-                                              : SizedBox()
+                                              : const SizedBox()
                                         ],
                                       ),
                                 subtitle: Text(
@@ -257,7 +256,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                               .clientName ??
                                           '',
                                   style: GoogleFonts.inter(
-                                      color: AppColors.primaryColor),
+                                      color: AppColors.backgroundColor),
                                 ),
                                 trailing: getRole() == "client"
                                     ? snapshot.projectsModel
@@ -273,7 +272,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                         ?.elementAt(index)
                                                         .isApproved ==
                                                     "rejected"
-                                            ? SizedBox()
+                                            ? const SizedBox()
                                             : IconButton(
                                                 icon: const Icon(
                                                   Icons.cancel_outlined,
@@ -310,7 +309,7 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                                                   }
                                                 },
                                               )
-                                    : SizedBox(),
+                                    : const SizedBox(),
                               );
                             });
               }),
@@ -327,8 +326,8 @@ class _DashboardPageState extends State<DashboardPage> with BaseClass {
                   color: AppColors.primaryColor,
                   child: Center(
                     child: Text(
-                      "New Project",
-                      style: GoogleFonts.poppins(color: AppColors.bgWhite),
+                      "NEW PROJECT",
+                      style: GoogleFonts.inter (color: AppColors.backgroundColor),
                     ),
                   ),
                 ),

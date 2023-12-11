@@ -1,9 +1,7 @@
-import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:avi/utils/app_constants.dart';
 import 'package:avi/utils/baseClass.dart';
@@ -15,7 +13,7 @@ import '../../controllers/login/login_controller.dart';
 import '../register/register_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -174,7 +172,7 @@ class _LoginPageState extends State<LoginPage> with BaseClass {
                     if (mounted) {
                       popToPreviousScreen(context: context);
                     }
-                    Get.offAll(() => DashboardPage());
+                    Get.offAll(() => const DashboardPage());
                   } catch (e) {
                     if (mounted) {
                       popToPreviousScreen(context: context);

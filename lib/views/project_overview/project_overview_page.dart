@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:avi/utils/app_constants.dart';
 import 'package:avi/views/new_record/new_record_page.dart';
 import 'package:avi/utils/baseClass.dart';
 
@@ -16,9 +15,8 @@ class ProjectOverviewPage extends StatefulWidget {
 
   final String clientId;
 
-  ProjectOverviewPage(
-      {Key? key, required this.projectId, required this.clientId, required this.projectName})
-      : super(key: key);
+  const ProjectOverviewPage(
+      {super.key, required this.projectId, required this.clientId, required this.projectName});
 
   @override
   State<ProjectOverviewPage> createState() => _ProjectOverviewPageState();
@@ -109,7 +107,7 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage>
                                   .endTime ??
                                   "",
                             ),
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                                 color: AppColors.primaryColor),
                           ),
                           subtitle: Text(
@@ -117,8 +115,8 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage>
                                 ?.elementAt(index)
                                 .recordName ??
                                 "",
-                            style: GoogleFonts.poppins(
-                                color: AppColors.primaryColor),
+                            style: GoogleFonts.inter(
+                                color: AppColors.backgroundColor),
                           ),
                         );
                       });
@@ -138,8 +136,8 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage>
                     color: AppColors.primaryColor,
                     child: Center(
                       child: Text(
-                        "Add new record",
-                        style: GoogleFonts.inter(color: AppColors.bgWhite),
+                        "ADD NEW RECORD",
+                        style: GoogleFonts.inter(color: AppColors.backgroundColor),
                       ),
                     ),
                   ),

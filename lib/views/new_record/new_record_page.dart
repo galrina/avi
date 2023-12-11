@@ -19,8 +19,7 @@ class NewRecordPage extends StatefulWidget {
 
   final String clientId;
 
-  NewRecordPage({Key? key, required this.projectId, required this.clientId})
-      : super(key: key);
+  const NewRecordPage({super.key, required this.projectId, required this.clientId});
 
   @override
   State<NewRecordPage> createState() => _NewRecordPageState();
@@ -207,8 +206,8 @@ class _NewRecordPageState extends State<NewRecordPage> with BaseClass {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Add New Record",
-            style: GoogleFonts.poppins(color: AppColors.primaryColor),
+            "NEW RECORD",
+            style: GoogleFonts.inter(color: AppColors.backgroundColor, fontSize: 20, fontWeight: FontWeight.w700),
           ),
           centerTitle: true,
         ),
@@ -260,7 +259,7 @@ class _NewRecordPageState extends State<NewRecordPage> with BaseClass {
                             child: Text(
                               "Start/Stop",
                               style:
-                                  GoogleFonts.poppins(color: AppColors.bgWhite),
+                                  GoogleFonts.inter(color: AppColors.backgroundColor),
                             ),
                           ),
                         ),
@@ -271,7 +270,7 @@ class _NewRecordPageState extends State<NewRecordPage> with BaseClass {
                       Text(
                         "${snapshot.recordTimeOnScreen} hrs",
                         style:
-                            GoogleFonts.poppins(color: AppColors.primaryColor),
+                            GoogleFonts.inter(color: AppColors.primaryColor),
                       ),
                       (_lastCapturedData != null &&
                               _lastCapturedData?.imagePath != null)

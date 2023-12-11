@@ -16,12 +16,12 @@ class CheckLoginStatusController extends GetxController {
       var result = UserDataModel.fromJson(prefData);
 
       if (result.isLoggedIn == null || result.isLoggedIn == false) {
-        Get.offAll(() => LoginPage());
+        Get.offAll(() => const LoginPage());
       } else {
-        Get.offAll(() => DashboardPage());
+        Get.offAll(() => const DashboardPage());
       }
     } else {
-      Get.offAll(() => LoginPage());
+      Get.offAll(() => const LoginPage());
     }
   }
 

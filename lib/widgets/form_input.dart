@@ -28,7 +28,7 @@ class FormInput extends StatelessWidget {
   final TextEditingController controller;
 
   const FormInput(
-      {Key? key,
+      {super.key,
         required this.label,
         this.obscureText = false,
         this.keyboardType,
@@ -47,8 +47,7 @@ class FormInput extends StatelessWidget {
         required this.focusNode,
         this.initialValue,
         required this.hintText,
-        this.textFieldHeight = 0})
-      : super(key: key);
+        this.textFieldHeight = 0});
 
   @override
   Widget build(BuildContext context) {

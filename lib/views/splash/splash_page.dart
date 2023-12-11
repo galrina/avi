@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:avi/controllers/check_login_status/check_login_status_controller.dart';
 
 class SplashPage extends StatelessWidget {
-  SplashPage({Key? key}) : super(key: key);
+  SplashPage({super.key});
   CheckLoginStatusController checkLoginStatusController =
       Get.put(CheckLoginStatusController());
 

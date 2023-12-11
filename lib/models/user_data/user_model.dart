@@ -46,7 +46,7 @@ class UserDataModel {
   }
 
   setUserId(String id) {
-    this.userId = id;
+    userId = id;
   }
 
   bool? isLogin() {
@@ -66,7 +66,7 @@ class UserDataModel {
   }
 
   setUserEmail(String email) {
-    this.userEmail = email;
+    userEmail = email;
   }
 
   setLogin(bool isLogin) {

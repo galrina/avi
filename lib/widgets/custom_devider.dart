@@ -9,12 +9,11 @@ class CustomerDivider extends StatelessWidget {
   final double height;
 
   const CustomerDivider(
-      {Key? key,
+      {super.key,
         this.horizontalMargin = 20,
         this.verticalMargin = 0,
         this.color = AppColors.bgPurple,
-        this.height = 0.5})
-      : super(key: key);
+        this.height = 0.5});
 
   @override
   Widget build(BuildContext context) {

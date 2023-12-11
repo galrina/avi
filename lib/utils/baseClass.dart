@@ -134,7 +134,7 @@ mixin BaseClass {
   }
 
   void removeFocusFromEditText({required BuildContext context}) {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 
 
@@ -151,8 +151,8 @@ mixin BaseClass {
     required String message,
   }) {
     Get.snackbar(title, message,
-        colorText: Colors.black,
-        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        backgroundColor: Colors.black,
         duration: const Duration(milliseconds: 1500));
   }
 
@@ -162,7 +162,7 @@ mixin BaseClass {
   }) {
     Get.snackbar(title, message,
         colorText: Colors.black,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.greenAccent,
         duration: const Duration(milliseconds: 1500));
   }
 

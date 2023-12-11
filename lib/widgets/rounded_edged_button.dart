@@ -12,7 +12,7 @@ class RoundedEdgedButton extends StatelessWidget {
   final double borderRadius;
 
   const RoundedEdgedButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.onButtonClick,
     this.height = 50,
@@ -20,7 +20,7 @@ class RoundedEdgedButton extends StatelessWidget {
     this.borderRadius = 5,
     this.buttonFontSize = 16,
     this.buttonTextColor = AppColors.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

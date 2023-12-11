@@ -12,7 +12,7 @@ import '../../widgets/form_input_with_hint_on_top.dart';
 import '../../widgets/rounded_edged_button.dart';
 
 class NewProjectPage extends StatelessWidget with BaseClass {
-  NewProjectPage({Key? key}) : super(key: key);
+  NewProjectPage({super.key});
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   NewProjectController newProjectController = Get.put(NewProjectController());
@@ -24,8 +24,8 @@ class NewProjectPage extends StatelessWidget with BaseClass {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "New Project",
-          style: GoogleFonts.poppins(color: AppColors.primaryColor),
+          "NEW PROJECT",
+          style: GoogleFonts.inter (color: AppColors.backgroundColor, fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),
       body: Container(

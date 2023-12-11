@@ -13,12 +13,11 @@ class ProjectScreenShotsPage extends StatefulWidget {
   final String title;
 
   const ProjectScreenShotsPage(
-      {Key? key,
+      {super.key,
         required this.recordId,
         required this.projectId,
         required this.title,
-        required this.comment})
-      : super(key: key);
+        required this.comment});
 
   @override
   State<ProjectScreenShotsPage> createState() => _ProjectScreenShotsPageState();

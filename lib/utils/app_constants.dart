@@ -11,7 +11,7 @@ class AppConstants {
 }) {
     Get.snackbar(title, message,
         colorText: Colors.white,
-        backgroundColor: Colors.red.shade900,
+        backgroundColor: Colors.grey.shade900,
         duration: const Duration(milliseconds: 2000));
   }
 }
